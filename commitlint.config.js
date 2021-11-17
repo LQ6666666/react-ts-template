@@ -17,5 +17,5 @@
 // test:     添加测试或者修改现有测试
 
 module.exports = {
-    extends: ['@commitlint/config-conventional'],
+  extends: ['@commitlint/config-conventional'],
 };
