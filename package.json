@@ -2,7 +2,58 @@
   "name": "react-ts-template",
   "version": "1.0.0",
   "main": "index.js",
+  "scripts": {
+    "prepare": "husky install",
+    "start": "webpack serve --mode development --env development",
+    "build": "webpack --mode production --env production",
+    "lint": "prettier --check --write --ignore-unknown \"**/*.!(tsx|ts|jsx|js)\""
+  },
   "repository": "https://gitee.com/li_qi666/react-ts-template.git",
   "author": "171035726@qq.com <171035726@qq.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@commitlint/cli": "^15.0.0",
+    "@commitlint/config-conventional": "^15.0.0",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.1",
+    "@types/react": "^17.0.35",
+    "@types/react-dom": "^17.0.11",
+    "clean-webpack-plugin": "^4.0.0",
+    "copy-webpack-plugin": "^9.1.0",
+    "css-loader": "^6.5.1",
+    "esbuild-loader": "^2.16.0",
+    "eslint": "^8.2.0",
+    "fork-ts-checker-webpack-plugin": "^6.4.0",
+    "html-webpack-plugin": "^5.5.0",
+    "husky": "^7.0.4",
+    "less": "^4.1.2",
+    "less-loader": "^10.2.0",
+    "lint-staged": "^12.0.2",
+    "mini-css-extract-plugin": "^2.4.4",
+    "postcss": "^8.3.11",
+    "postcss-loader": "^6.2.0",
+    "postcss-preset-env": "^7.0.0",
+    "prettier": "^2.4.1",
+    "react-refresh": "^0.11.0",
+    "style-loader": "^3.3.1",
+    "terser-webpack-plugin": "^5.2.5",
+    "typescript": "^4.4.4",
+    "webpack": "^5.64.1",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.5.0",
+    "webpack-merge": "^5.8.0"
+  },
+  "dependencies": {
+    "normalize.css": "^8.0.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "yarn run lint",
+      "git add --force"
+    ],
+    "*.{md,json}": [
+      "git add --force"
+    ]
+  }
 }
