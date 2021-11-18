@@ -1,7 +1,10 @@
+const { DefinePlugin, ProvidePlugin } = require("webpack");
+
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
+const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 
 const paths = require('./paths');
 
@@ -10,11 +13,12 @@ const isProduction = process.env.NODE_ENV === 'production';
 module.exports = {
   entry: paths.APP_INDEX_JS,
   module: {
+    // 导入一个内容，没有对应的导出时，报一个警告，设置为 true，报一个错误
+    strictExportPresence: true,
     rules: [
       {
         test: /\.tsx?$/,
         include: paths.APP_SRC,
-        exclude: /node_modules/,
         loader: 'esbuild-loader',
         options: {
           loader: 'tsx',
@@ -24,7 +28,6 @@ module.exports = {
       {
         test: /\.css$/,
         include: paths.APP_SRC,
-        exclude: /node_modules/,
         use: [
           isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
           {
@@ -39,7 +42,6 @@ module.exports = {
       {
         test: /\.less$/,
         include: paths.APP_SRC,
-        exclude: /node_modules/,
         use: [
           isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
           {
@@ -60,7 +62,7 @@ module.exports = {
         },
         parser: {
           dataUrlCondition: {
-            maxSize: 2 ** 10 * 100,
+            maxSize: 100 * 1024, // 1mb
           },
         },
       },
@@ -80,21 +82,40 @@ module.exports = {
     },
   },
   plugins: [
-    new ForkTsCheckerWebpackPlugin(),
-    new HtmlWebpackPlugin({
-      template: paths.APP_HTML,
-      minify: {
-        removeComments: true,
-        collapseWhitespace: true,
-        removeRedundantAttributes: true,
-        useShortDoctype: true,
-        removeEmptyAttributes: true,
-        removeStyleLinkTypeAttributes: true,
-        keepClosingSlash: true,
-        minifyJS: true,
-        minifyCSS: true,
-        minifyURLs: true,
-      },
+    new ProvidePlugin({
+      React: 'react'
     }),
+    new DefinePlugin({
+      APP_TITLE: JSON.stringify("测试"),
+    }),
+    new ForkTsCheckerWebpackPlugin(),
+    new HtmlWebpackPlugin(
+      Object.assign(
+        {
+          inject: true,
+          template: paths.APP_HTML,
+        },
+        isProduction
+          ? {
+            minify: {
+              removeComments: true,
+              collapseWhitespace: true,
+              removeRedundantAttributes: true,
+              useShortDoctype: true,
+              removeEmptyAttributes: true,
+              removeStyleLinkTypeAttributes: true,
+              keepClosingSlash: true,
+              minifyJS: true,
+              minifyCSS: true,
+              minifyURLs: true,
+            },
+          }
+          : undefined
+      )
+    ),
+    // @ts-ignore
+    new InterpolateHtmlPlugin(HtmlWebpackPlugin, { PUBLIC_URL: "." }),
   ],
 };
+
+

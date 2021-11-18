@@ -11,9 +11,8 @@ module.exports = {
   output: {
     path: paths.APP_BUILD,
     pathinfo: true,
-    filename: 'static/js/bundle.js',
-    chunkFilename: 'static/js/[name].chunk.js',
-    assetModuleFilename: 'static/media/[name].[hash][ext]',
+    filename: 'js/bundle.js',
+    chunkFilename: 'js/[name].chunk.js',
     publicPath: '', // 后面从 env 读取
   },
   optimization: {

@@ -3,7 +3,12 @@ const fs = require('fs');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
+
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin")
+
+const InlineChunkHtmlPlugin = require("react-dev-utils/InlineChunkHtmlPlugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 const paths = require('./paths');
 
@@ -21,12 +26,15 @@ module.exports = {
   output: {
     path: paths.APP_BUILD,
     pathinfo: false,
-    filename: 'static/js/[name].[contenthash:8].js',
-    chunkFilename: 'static/js/[name].[contenthash:8].chunk.js',
-    assetModuleFilename: 'static/media/[name].[hash][ext]',
-    publicPath: './', // 后面从 env 读取
+    filename: 'js/[name].[contenthash:8].js',
+    chunkFilename: 'js/[name].[contenthash:8].chunk.js',
+    assetModuleFilename: 'assets/[hash][ext][query]',
+    publicPath: "./", // 后面从 env 读取
   },
   optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
     usedExports: true,
     minimize: true,
     minimizer: [
@@ -40,14 +48,14 @@ module.exports = {
       }),
     ],
   },
-  resolve: {
-    extensions: ['.ts', '.js', '.json'],
-  },
   plugins: [
     new CleanWebpackPlugin(),
+    // css 压缩
+    new CssMinimizerPlugin(),
+    // 把 css 放在单独文件里面
     new MiniCssExtractPlugin({
-      filename: 'static/css/[name].[contenthash:8].css',
-      chunkFilename: 'static/css/[name].[contenthash:8].chunk.css',
+      filename: 'css/[name].[contenthash:8].css',
+      chunkFilename: 'css/[name].[contenthash:8].chunk.css',
     }),
     new CopyPlugin({
       patterns: [
@@ -59,5 +67,7 @@ module.exports = {
         },
       ],
     }),
+    // @ts-ignore
+    new InlineChunkHtmlPlugin(HtmlWebpackPlugin, [/runtime-.+[.]js/]),
   ],
 };
