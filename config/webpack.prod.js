@@ -5,10 +5,10 @@ const CopyPlugin = require('copy-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin")
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
-const InlineChunkHtmlPlugin = require("react-dev-utils/InlineChunkHtmlPlugin");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const InlineChunkHtmlPlugin = require('react-dev-utils/InlineChunkHtmlPlugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const paths = require('./paths');
 
@@ -19,7 +19,9 @@ module.exports = {
     store: 'pack',
     buildDependencies: {
       config: [__filename],
-      tsconfig: [paths.APP_JSCONFIG, paths.APP_TSCONFIG].filter(f => fs.existsSync(f)),
+      tsconfig: [paths.APP_JSCONFIG, paths.APP_TSCONFIG].filter((f) =>
+        fs.existsSync(f),
+      ),
       // 默认情况下 webpack 与 loader 是构建依赖。
     },
   },
@@ -29,7 +31,7 @@ module.exports = {
     filename: 'js/[name].[contenthash:8].js',
     chunkFilename: 'js/[name].[contenthash:8].chunk.js',
     assetModuleFilename: 'assets/[hash][ext][query]',
-    publicPath: "./", // 后面从 env 读取
+    publicPath: './', // 后面从 env 读取
   },
   optimization: {
     splitChunks: {

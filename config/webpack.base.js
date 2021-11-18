@@ -1,4 +1,4 @@
-const { DefinePlugin, ProvidePlugin } = require("webpack");
+const { DefinePlugin, ProvidePlugin } = require('webpack');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
@@ -76,17 +76,17 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: paths.moduleFileExtensions.map(ext => `.${ext}`),
+    extensions: paths.moduleFileExtensions.map((ext) => `.${ext}`),
     alias: {
       '@': paths.APP_SRC,
     },
   },
   plugins: [
     new ProvidePlugin({
-      React: 'react'
+      React: 'react',
     }),
     new DefinePlugin({
-      APP_TITLE: JSON.stringify("测试"),
+      APP_TITLE: JSON.stringify('测试'),
     }),
     new ForkTsCheckerWebpackPlugin(),
     new HtmlWebpackPlugin(
@@ -97,25 +97,23 @@ module.exports = {
         },
         isProduction
           ? {
-            minify: {
-              removeComments: true,
-              collapseWhitespace: true,
-              removeRedundantAttributes: true,
-              useShortDoctype: true,
-              removeEmptyAttributes: true,
-              removeStyleLinkTypeAttributes: true,
-              keepClosingSlash: true,
-              minifyJS: true,
-              minifyCSS: true,
-              minifyURLs: true,
-            },
-          }
-          : undefined
-      )
+              minify: {
+                removeComments: true,
+                collapseWhitespace: true,
+                removeRedundantAttributes: true,
+                useShortDoctype: true,
+                removeEmptyAttributes: true,
+                removeStyleLinkTypeAttributes: true,
+                keepClosingSlash: true,
+                minifyJS: true,
+                minifyCSS: true,
+                minifyURLs: true,
+              },
+            }
+          : undefined,
+      ),
     ),
     // @ts-ignore
-    new InterpolateHtmlPlugin(HtmlWebpackPlugin, { PUBLIC_URL: "." }),
+    new InterpolateHtmlPlugin(HtmlWebpackPlugin, { PUBLIC_URL: '.' }),
   ],
 };
-
-

@@ -1,7 +1,9 @@
 const fs = require('fs');
 const path = require('path');
 //读取prettier配置
-const prettierOptions = JSON.parse(fs.readFileSync(path.resolve(__dirname, '.prettierrc'), 'utf8'));
+const prettierOptions = JSON.parse(
+  fs.readFileSync(path.resolve(__dirname, '.prettierrc'), 'utf8'),
+);
 
 module.exports = {
   root: true,
@@ -10,7 +12,13 @@ module.exports = {
   // prettier 已内置了许多相关插件
   extends: ['airbnb-typescript', 'prettier'],
   // 拓展和支持相关能力的插件库
-  plugins: ['prettier', 'react', 'react-hooks', 'jsx-a11y', '@typescript-eslint'],
+  plugins: [
+    'prettier',
+    'react',
+    'react-hooks',
+    'jsx-a11y',
+    '@typescript-eslint',
+  ],
   env: {
     //指定代码的运行环境
     jest: true,
