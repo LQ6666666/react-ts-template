@@ -29,7 +29,15 @@ module.exports = {
         test: /\.css$/,
         include: paths.APP_SRC,
         use: [
-          isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
+          isProduction
+            ? {
+              loader: MiniCssExtractPlugin.loader,
+              options: {
+                // 路径：/css/assets 所以写成 ../
+                publicPath: "../",
+              },
+            }
+            : 'style-loader',
           {
             loader: 'css-loader',
             options: {
@@ -43,7 +51,15 @@ module.exports = {
         test: /\.less$/,
         include: paths.APP_SRC,
         use: [
-          isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
+          isProduction
+            ? {
+              loader: MiniCssExtractPlugin.loader,
+              options: {
+                // 路径：/css/assets 所以写成 ../
+                publicPath: "../",
+              },
+            }
+            : 'style-loader',
           {
             loader: 'css-loader',
             options: {
@@ -97,19 +113,19 @@ module.exports = {
         },
         isProduction
           ? {
-              minify: {
-                removeComments: true,
-                collapseWhitespace: true,
-                removeRedundantAttributes: true,
-                useShortDoctype: true,
-                removeEmptyAttributes: true,
-                removeStyleLinkTypeAttributes: true,
-                keepClosingSlash: true,
-                minifyJS: true,
-                minifyCSS: true,
-                minifyURLs: true,
-              },
-            }
+            minify: {
+              removeComments: true,
+              collapseWhitespace: true,
+              removeRedundantAttributes: true,
+              useShortDoctype: true,
+              removeEmptyAttributes: true,
+              removeStyleLinkTypeAttributes: true,
+              keepClosingSlash: true,
+              minifyJS: true,
+              minifyCSS: true,
+              minifyURLs: true,
+            },
+          }
           : undefined,
       ),
     ),

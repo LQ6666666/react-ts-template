@@ -58,6 +58,8 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: 'css/[name].[contenthash:8].css',
       chunkFilename: 'css/[name].[contenthash:8].chunk.css',
+      // 启用实验性的importModule方法，而不是使用子编译器。这样占用的内存更少，速度更快
+      experimentalUseImportModule: true,
     }),
     new CopyPlugin({
       patterns: [
