@@ -1,12 +1,9 @@
 **/node_modules/**
-package.json
+//.prettierignore 
+**/*.min.js
+**/*.min.css
 
-# fixtures
-**/fixtures/**
-
-# templates
-**/templates/**
-
-# coverage
-/coverage
-/build
+.idea/
+node_modules/
+dist/
+build/

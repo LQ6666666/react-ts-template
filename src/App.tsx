@@ -1,11 +1,11 @@
-import { useState, memo } from 'react';
+import { useState, memo } from "react";
 
-import { delay } from '@/utils';
+import { delay } from "@/utils";
 
-import img from '@/assets/images/test.png';
-import img1 from '@/assets/images/123.gif';
+import img from "@/assets/images/test.png";
+import img1 from "@/assets/images/123.gif";
 
-const App = memo(() => {
+export default memo(function App() {
   const [counter, setCounter] = useState<number>(0);
 
   return (
@@ -22,8 +22,8 @@ const App = memo(() => {
       >
         +1
       </button>
+
+      <input type="text" />
     </>
   );
 });
-
-export default App;
