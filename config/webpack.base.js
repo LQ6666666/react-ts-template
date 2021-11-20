@@ -1,17 +1,26 @@
-const { DefinePlugin, ProvidePlugin } = require('webpack');
+const { DefinePlugin, ProvidePlugin } = require("webpack");
 
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
-const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
+const InterpolateHtmlPlugin = require("react-dev-utils/InterpolateHtmlPlugin");
 
-const paths = require('./paths');
+const paths = require("./paths");
 
-const isProduction = process.env.NODE_ENV === 'production';
+const isProduction = process.env.NODE_ENV === "production";
 
 module.exports = {
+  target: "browserslist",
   entry: paths.APP_INDEX_JS,
+  output: {
+    path: paths.APP_BUILD,
+    pathinfo: isProduction ? false : true,
+    filename: isProduction ? "js/[name].[contenthash:8].js" : "js/bundle.js",
+    chunkFilename: isProduction ? "js/[name].[contenthash:8].chunk.js" : "js/[name].chunk.js",
+    assetModuleFilename: "assets/[hash][ext][query]",
+    publicPath: isProduction ? "./" : "", // 后面从 env 读取
+  },
   module: {
     // 导入一个内容，没有对应的导出时，报一个警告，设置为 true，报一个错误
     strictExportPresence: true,
@@ -19,10 +28,10 @@ module.exports = {
       {
         test: /\.tsx?$/,
         include: paths.APP_SRC,
-        loader: 'esbuild-loader',
+        loader: "esbuild-loader",
         options: {
-          loader: 'tsx',
-          target: 'es2015',
+          loader: "tsx",
+          target: "es2015",
         },
       },
       {
@@ -34,17 +43,17 @@ module.exports = {
                 loader: MiniCssExtractPlugin.loader,
                 options: {
                   // 路径：/css/assets 所以写成 ../
-                  publicPath: '../',
+                  publicPath: "../",
                 },
               }
-            : 'style-loader',
+            : "style-loader",
           {
-            loader: 'css-loader',
+            loader: "css-loader",
             options: {
               importLoaders: 1,
             },
           },
-          'postcss-loader',
+          "postcss-loader",
         ],
       },
       {
@@ -56,25 +65,25 @@ module.exports = {
                 loader: MiniCssExtractPlugin.loader,
                 options: {
                   // 路径：/css/assets 所以写成 ../
-                  publicPath: '../',
+                  publicPath: "../",
                 },
               }
-            : 'style-loader',
+            : "style-loader",
           {
-            loader: 'css-loader',
+            loader: "css-loader",
             options: {
               importLoaders: 2,
             },
           },
-          'postcss-loader',
-          'less-loader',
+          "postcss-loader",
+          "less-loader",
         ],
       },
       {
         test: /\.(png|jpg|gif|jpeg|webp|svg)$/,
-        type: 'asset',
+        type: "asset",
         generator: {
-          filename: 'assets/images/[hash][ext][query]',
+          filename: "assets/images/[hash][ext][query]",
         },
         parser: {
           dataUrlCondition: {
@@ -84,25 +93,25 @@ module.exports = {
       },
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/i,
-        type: 'asset/resource',
+        type: "asset/resource",
         generator: {
-          filename: 'assets/fonts/[hash][ext][query]',
+          filename: "assets/fonts/[hash][ext][query]",
         },
       },
     ],
   },
   resolve: {
-    extensions: paths.moduleFileExtensions.map((ext) => `.${ext}`),
+    extensions: paths.moduleFileExtensions.map(ext => `.${ext}`),
     alias: {
-      '@': paths.APP_SRC,
+      "@": paths.APP_SRC,
     },
   },
   plugins: [
     new ProvidePlugin({
-      React: 'react',
+      React: "react",
     }),
     new DefinePlugin({
-      APP_TITLE: JSON.stringify('测试'),
+      APP_TITLE: JSON.stringify("测试"),
     }),
     new ForkTsCheckerWebpackPlugin(),
     new HtmlWebpackPlugin(
@@ -126,10 +135,10 @@ module.exports = {
                 minifyURLs: true,
               },
             }
-          : undefined,
-      ),
+          : undefined
+      )
     ),
     // @ts-ignore
-    new InterpolateHtmlPlugin(HtmlWebpackPlugin, { PUBLIC_URL: '.' }),
+    new InterpolateHtmlPlugin(HtmlWebpackPlugin, { PUBLIC_URL: "." }),
   ],
 };

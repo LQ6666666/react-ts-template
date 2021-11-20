@@ -1,41 +1,31 @@
-const fs = require('fs');
+const fs = require("fs");
 
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const CopyPlugin = require('copy-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
 
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
-const InlineChunkHtmlPlugin = require('react-dev-utils/InlineChunkHtmlPlugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const InlineChunkHtmlPlugin = require("react-dev-utils/InlineChunkHtmlPlugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
-const paths = require('./paths');
+const paths = require("./paths");
 
 module.exports = {
-  mode: 'production',
+  mode: "production",
   cache: {
-    type: 'filesystem',
-    store: 'pack',
+    type: "filesystem",
+    store: "pack",
     buildDependencies: {
       config: [__filename],
-      tsconfig: [paths.APP_JSCONFIG, paths.APP_TSCONFIG].filter((f) =>
-        fs.existsSync(f),
-      ),
+      tsconfig: [paths.APP_JSCONFIG, paths.APP_TSCONFIG].filter(f => fs.existsSync(f)),
       // 默认情况下 webpack 与 loader 是构建依赖。
     },
   },
-  output: {
-    path: paths.APP_BUILD,
-    pathinfo: false,
-    filename: 'js/[name].[contenthash:8].js',
-    chunkFilename: 'js/[name].[contenthash:8].chunk.js',
-    assetModuleFilename: 'assets/[hash][ext][query]',
-    publicPath: './', // 后面从 env 读取
-  },
   optimization: {
     splitChunks: {
-      chunks: 'all',
+      chunks: "all",
     },
     usedExports: true,
     minimize: true,
@@ -56,8 +46,8 @@ module.exports = {
     new CssMinimizerPlugin(),
     // 把 css 放在单独文件里面
     new MiniCssExtractPlugin({
-      filename: 'css/[name].[contenthash:8].css',
-      chunkFilename: 'css/[name].[contenthash:8].chunk.css',
+      filename: "css/[name].[contenthash:8].css",
+      chunkFilename: "css/[name].[contenthash:8].chunk.css",
       // 启用实验性的importModule方法，而不是使用子编译器。这样占用的内存更少，速度更快
       experimentalUseImportModule: true,
     }),
@@ -66,7 +56,7 @@ module.exports = {
         {
           from: paths.APP_PUBLIC,
           globOptions: {
-            ignore: ['**/index.html', '**/.DS_Store'],
+            ignore: ["**/index.html", "**/.DS_Store"],
           },
         },
       ],

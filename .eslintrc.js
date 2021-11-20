@@ -36,5 +36,7 @@ module.exports = {
     "generator-star-spacing": "off",
     "no-debugger": process.env.NODE_ENV === "production" ? "error" : "off",
     "no-useless-escape": 2,
+    "@typescript-eslint/no-var-requires": 0,
+    "@typescript-eslint/ban-ts-comment": "off",
   },
 };

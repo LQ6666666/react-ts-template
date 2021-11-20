@@ -1,10 +1,8 @@
 const { merge } = require("webpack-merge");
 
-// const baseConfig = require("./config/webpack.base");
-const productionConfig = require("./config/webpack.prod");
-const developmentConfig = require("./config/webpack.dev");
+const prodConfig = require("./config/webpack.prod");
+const devConfig = require("./config/webpack.dev");
 
-// @ts-ignore
 module.exports = (env, args) => {
   process.env.NODE_ENV = args.mode;
 
@@ -13,10 +11,10 @@ module.exports = (env, args) => {
   switch (args.mode) {
     case "development":
       // @ts-ignore
-      return merge(baseConfig, developmentConfig);
+      return merge(baseConfig, prodConfig);
     case "production":
       // @ts-ignore
-      return merge(baseConfig, productionConfig);
+      return merge(baseConfig, devConfig);
     default:
       throw new Error("No matching configuration was found!");
   }
