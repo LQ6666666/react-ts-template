@@ -6,9 +6,16 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const InterpolateHtmlPlugin = require("react-dev-utils/InterpolateHtmlPlugin");
 
+// 这个模块要在 paths 之前引入，加载正确的 path_url
+const getClientEnvironment = require("./env");
+
 const paths = require("./paths");
 
 const isProduction = process.env.NODE_ENV === "production";
+
+const env = getClientEnvironment(paths.PUBLIC_URL_OR_PATH.slice(0, -1));
+
+console.log(paths.PUBLIC_URL_OR_PATH);
 
 module.exports = {
   target: "browserslist",
@@ -19,7 +26,7 @@ module.exports = {
     filename: isProduction ? "js/[name].[contenthash:8].js" : "js/bundle.js",
     chunkFilename: isProduction ? "js/[name].[contenthash:8].chunk.js" : "js/[name].chunk.js",
     assetModuleFilename: "assets/[hash][ext][query]",
-    publicPath: isProduction ? "./" : "", // 后面从 env 读取
+    publicPath: paths.PUBLIC_URL_OR_PATH, // 后面从 env 读取
   },
   module: {
     // 导入一个内容，没有对应的导出时，报一个警告，设置为 true，报一个错误
@@ -110,9 +117,7 @@ module.exports = {
     new ProvidePlugin({
       React: "react",
     }),
-    new DefinePlugin({
-      APP_TITLE: JSON.stringify("测试"),
-    }),
+    new DefinePlugin(env.stringified),
     new ForkTsCheckerWebpackPlugin(),
     new HtmlWebpackPlugin(
       Object.assign(
@@ -139,6 +144,6 @@ module.exports = {
       )
     ),
     // @ts-ignore
-    new InterpolateHtmlPlugin(HtmlWebpackPlugin, { PUBLIC_URL: "." }),
+    new InterpolateHtmlPlugin(HtmlWebpackPlugin, env.raw),
   ],
 };

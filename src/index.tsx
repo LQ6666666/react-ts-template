@@ -1,7 +1,9 @@
-import ReactDOM from 'react-dom';
+import ReactDOM from "react-dom";
 
-import '@/assets/css/global.css';
+import "@/assets/css/global.css";
 
-import App from './App';
+import App from "./App";
 
-ReactDOM.render(<App />, document.getElementById('root'));
+console.log(process.env);
+
+ReactDOM.render(<App />, document.getElementById("root"));

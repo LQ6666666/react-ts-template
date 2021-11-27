@@ -11,10 +11,10 @@ module.exports = (env, args) => {
   switch (args.mode) {
     case "development":
       // @ts-ignore
-      return merge(baseConfig, prodConfig);
+      return merge(baseConfig, devConfig);
     case "production":
       // @ts-ignore
-      return merge(baseConfig, devConfig);
+      return merge(baseConfig, prodConfig);
     default:
       throw new Error("No matching configuration was found!");
   }
