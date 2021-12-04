@@ -15,8 +15,6 @@ const isProduction = process.env.NODE_ENV === "production";
 
 const env = getClientEnvironment(paths.PUBLIC_URL_OR_PATH.slice(0, -1));
 
-console.log(paths.PUBLIC_URL_OR_PATH);
-
 module.exports = {
   target: "browserslist",
   entry: paths.APP_INDEX_JS,
