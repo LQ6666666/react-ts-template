@@ -11,8 +11,6 @@ export default memo(function App() {
 
       <button
         onClick={async () => {
-          // async
-          // const { delay } = await import("@/utils");
           await delay(2);
           setCounter(counter + 1);
         }}

@@ -1,3 +1,10 @@
+declare namespace NodeJS {
+  interface ProcessEnv {
+    readonly NODE_ENV: "development" | "production" | "test";
+    readonly PUBLIC_URL: string;
+  }
+}
+
 declare module "*.css";
 declare module "*.less";
 declare module "*.scss";
@@ -10,4 +17,7 @@ declare module "*.gif";
 declare module "*.bmp";
 declare module "*.tiff";
 
-declare const REACT_APP_ENV: "test" | "dev" | "prod" | false;
+declare module "*.avif" {
+  const src: string;
+  export default src;
+}
