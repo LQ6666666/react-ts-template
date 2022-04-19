@@ -1,4 +1,4 @@
-const { DefinePlugin, ProvidePlugin } = require("webpack");
+const { DefinePlugin } = require("webpack");
 
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
@@ -33,11 +33,7 @@ module.exports = {
       {
         test: /\.tsx?$/,
         include: paths.APP_SRC,
-        loader: "esbuild-loader",
-        options: {
-          loader: "tsx",
-          target: "es2015",
-        },
+        loader: "babel-loader",
       },
       {
         test: /\.css$/,
@@ -112,9 +108,6 @@ module.exports = {
     },
   },
   plugins: [
-    new ProvidePlugin({
-      React: "react",
-    }),
     new DefinePlugin(env.stringified),
     new ForkTsCheckerWebpackPlugin(),
     new HtmlWebpackPlugin(

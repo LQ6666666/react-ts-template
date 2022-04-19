@@ -48,7 +48,7 @@ module.exports = {
     minimizer: [
       new TerserPlugin({
         // esbuild 是一款非常快速的 JavaScript 打包工具和压缩工具
-        minify: TerserPlugin.esbuildMinify,
+        // minify: TerserPlugin.esbuildMinify,
         // 启用/禁用多进程并发运行功能
         parallel: true,
         // 启用/禁用剥离注释功能
