@@ -34,6 +34,9 @@ module.exports = {
         test: /\.tsx?$/,
         include: paths.APP_SRC,
         loader: "babel-loader",
+        options: {
+          cacheDirectory: true,
+        },
       },
       {
         test: /\.css$/,
