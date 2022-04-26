@@ -31,7 +31,7 @@ module.exports = {
       chunks: "all",
       minChunks: 1,
       cacheGroups: {
-        vendor: {
+        vendors: {
           test: /[\\/]node_modules[\\/]/,
           filename: "js/[id]_vendors.js",
           priority: -10,
@@ -55,6 +55,9 @@ module.exports = {
         extractComments: false,
       }),
     ],
+    runtimeChunk: {
+      name: entrypoint => `runtime-${entrypoint.name}`,
+    },
   },
   plugins: [
     new CleanWebpackPlugin(),
