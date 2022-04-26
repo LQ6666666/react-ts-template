@@ -1,3 +1,5 @@
+const isDevelopment = process.env.NODE_ENV === "development";
+
 module.exports = {
   presets: [
     "@babel/preset-env",
@@ -9,5 +11,8 @@ module.exports = {
     ],
     "@babel/preset-typescript",
   ],
-  plugins: ["@babel/plugin-transform-runtime"],
+  plugins: [
+    "@babel/plugin-transform-runtime",
+    isDevelopment && require("react-refresh/babel"),
+  ].filter(Boolean),
 };
