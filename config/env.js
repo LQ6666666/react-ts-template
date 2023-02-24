@@ -1,11 +1,13 @@
-const fs = require("fs");
-const path = require("path");
+const fs = require("node:fs");
+const path = require("node:path");
+
 const paths = require("./paths");
 
 delete require.cache[require.resolve("./paths")];
 
 const NODE_ENV = process.env.NODE_ENV;
 
+/** @type {string[]} */
 const dotenvFiles = [
   `${paths.DOTENV}.${NODE_ENV}.local`,
   NODE_ENV !== "test" && `${paths.DOTENV}.local`,
@@ -15,7 +17,7 @@ const dotenvFiles = [
 
 dotenvFiles.forEach(dotenvFile => {
   if (fs.existsSync(dotenvFile)) {
-    require("dotenv-expand")(
+    require("dotenv-expand").expand(
       require("dotenv").config({
         path: dotenvFile,
       })

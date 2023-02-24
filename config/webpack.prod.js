@@ -9,8 +9,8 @@ const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
 const InlineChunkHtmlPlugin = require("react-dev-utils/InlineChunkHtmlPlugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const CompressionPlugin = require("compression-webpack-plugin");
-const zlib = require("zlib");
+// const CompressionPlugin = require("compression-webpack-plugin");
+// const zlib = require("zlib");
 
 const paths = require("./paths");
 
@@ -82,18 +82,18 @@ module.exports = {
     }),
     // @ts-ignore
     new InlineChunkHtmlPlugin(HtmlWebpackPlugin, [/runtime-.+[.]js/]),
-    new CompressionPlugin({
-      filename: "[path][base].br",
-      algorithm: "brotliCompress",
-      test: /\.(js|css|html|svg)$/,
-      compressionOptions: {
-        // @ts-ignore
-        params: {
-          [zlib.constants.BROTLI_PARAM_QUALITY]: 11,
-        },
-      },
-      threshold: 10240,
-      minRatio: 0.8,
-    }),
+    // new CompressionPlugin({
+    //   filename: "[path][base].br",
+    //   algorithm: "brotliCompress",
+    //   test: /\.(js|css|html|svg)$/,
+    //   compressionOptions: {
+    //     // @ts-ignore
+    //     params: {
+    //       [zlib.constants.BROTLI_PARAM_QUALITY]: 11,
+    //     },
+    //   },
+    //   threshold: 10240,
+    //   minRatio: 0.8,
+    // }),
   ],
 };

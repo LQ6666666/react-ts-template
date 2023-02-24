@@ -1,7 +1,8 @@
-module.exports = {
+const { defineConfig } = require("eslint-define-config");
+
+module.exports = defineConfig({
   env: {
     node: true,
-    commonjs: true,
     browser: true,
     es2021: true,
   },
@@ -16,7 +17,7 @@ module.exports = {
     ecmaFeatures: {
       jsx: true,
     },
-    ecmaVersion: 12,
+    ecmaVersion: "latest",
     sourceType: "module",
   },
   plugins: ["react", "@typescript-eslint"],
@@ -40,4 +41,4 @@ module.exports = {
     "@typescript-eslint/ban-ts-comment": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
   },
-};
+});

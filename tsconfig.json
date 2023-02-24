@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "rootDir": "./src",
-    "target": "es5",
+    "target": "ESNext",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "module": "ESNext",
     "moduleResolution": "Node", // 将模块解析模式设置为 node.js 解析模式
